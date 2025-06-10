@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    body {
+      /*background-color: #080710;*/
+      background-color: #071739;
+    }
+
+    .background {
+      width: 430px;
+      height: 480px;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      left: 50%;
+      top: 50%;
+    }
+
+    .background .shape {
+      height: 180px;
+      width: 180px;
+      position: absolute;
+      border-radius: 50%;
+    }
+
+    .shape:first-child {
+      background: linear-gradient(#1845ad, #23a2f6);
+      left: -50px;
+      top: -80px;
+    }
+
+    .shape:last-child {
+      background: linear-gradient(to right, #ff512f, #f09819);
+      right: -30px;
+      bottom: -80px;
+    }
+
+
+    .calculator {
+      width: auto;
+      margin: 10px 5%;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      background-color: rgba(255, 255, 255, 0.13);
+      backdrop-filter: blur(10px);
+      /*para que de fondo se ven las esferas*/
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+      /*tenga sombra al rededor de la caja*/
+    }
+
+    .portada {
+      background: linear-gradient(to bottom, #071739, #4b6382);
+      width: auto;
+      margin: 10px 5%;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .contenedor_portada {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      align-items: center;
+    }
+
+    .caja1 {
+      order: 1;
+      align-self: flex-end;
+    }
+
+    .caja2 {
+      order: 2;
+      align-self: center;
+    }
+
+    .caja3 {
+      order: 3;
+      align-self: flex-start;
+    }
+
+    .contenido {
+      background: linear-gradient(to bottom, #4b6382, #a4b5c4);
+      width: auto;
+      margin: 10px 5%;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .album_fotos {
+      background: linear-gradient(to bottom, #a4b5c4, #cdd5db);
+      /*display: grid;
+            grid-template-columns: repeat(4,1fr);*/
+    }
+
+    .tiempo_relacion {
+      background: linear-gradient(to bottom, #cdd5db, #a68868);
+    }
+
+    .carta {
+      background: linear-gradient(to bottom, #a68868, #e3c39d);
+    }
+
+    .pie {
+      background: linear-gradient(to bottom, #a4b5c4, #e3c39d);
+    }
+
+    .foto_ver {
+      display: inline-flexbox;
+      align-items: center;
+      margin-top: 8%;
+    }
+
+    .contenedor_tiempo {
+      margin: 4%;
+    }
+
+
+
+
+    h1 {
+      margin: 0px;
+      margin-bottom: 10px;
+      font-family: 'Caveat', cursive;
+      font-size: 66px;
+      color: yellow;
+    }
+
+
+
+
+
+    button:hover {
+      background-color: #f09819;
+      cursor: pointer;
+    }
+
+    .colorBtn {
+      background-color: darkgray;
+      color: #1845ad;
+    }
+
+    .extra {
+      width: 40px;
+      height: 40px;
+    }
+
+    .igual {
+      width: 60px;
+      height: 128px;
+      background-color: #1845ad;
+      color: white;
+    }
+
+    .acomodar {
+      display: flex;
+    }
+
+    .contador-box {
+      background: white;
+      border: 3px solid #f9a8d4;
+      padding: 30px 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 90%;
+    }
+
+    .contador {
+      font-size: 1.5em;
+      margin: 10px 0;
+    }
+
+    .boton {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #ff4081;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .boton:hover {
+      background-color: #e91e63;
+    }
+
+    .mensaje {
+      margin-top: 15px;
+      font-size: 1.1em;
+      color: #d81b60;
+    }
+
+    .corazones {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .corazon {
+      position: absolute;
+      color: #f06292;
+      font-size: 20px;
+      animation: flotar 6s infinite linear;
+      opacity: 0.7;
+    }
+
+    .container {
+      padding: 50px;
+    }
+
+    h1 {
+      font-size: 36px;
+      color: #e91e63;
+      margin-bottom: 20px;
+    }
+
+    .card-box {
+      background: #fff;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      display: inline-block;
+    }
+
+    .btn {
+      background-color: #ff4d6d;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 25px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .letter {
+      display: none;
+      margin-top: 20px;
+      font-size: 18px;
+      color: #333;
+      text-align: left;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .album-container button {
+      margin: 10px;
+      padding: 10px 20px;
+      background-color: #ff6fa1;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      width: 90%;
+      max-width: 600px;
+      border-radius: 15px;
+      position: relative;
+    }
+
+    .cerrar {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 30px;
+      cursor: pointer;
+    }
+
+    .fotos img {
+      width: 100px;
+      margin: 5px;
+      border-radius: 10px;
+    }
+
+    .video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    max-width: 800px;
+    margin: auto;
+  }
+
+  .video-container iframe {
+    width: 100%;
+    height: 120px;
+    border-radius: 8px;
+  }
+
+    @keyframes flotar {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+
+      50% {
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="background">
+    <div class="shape"></div>
+    <div class="shape"></div>
+  </div>
+  <header class="portada" style="margin-top: 3%;">
+    <div class="contenedor_portada calculator">
+      <div id="nombres_portada">
+        <h1>Francisco y Natita</h1>
+        <label for=""> 09/06/2016</label>
+      </div>
+
+      <div id="fotos_portada">
+        <div style="display: flex;">
+          <div class="caja1">
+            <img src="imagenes/portada/imag1.jpg" alt="" style="border-radius: 50%;" width="60px" height="60px">
+          </div>
+          <div class="caja2">
+            <img src="imagenes/portada/imag2.jpg" alt="" style="border-radius: 50%;" width="200px" height="200px">
+          </div>
+          <div class="caja3">
+            <img src="imagenes/portada/imag3.jpg" alt="" style="border-radius: 50%;" width="60px" height="60px">
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class=" contenido">
+    <div class="calculator album_fotos" id="album">
+      <h1>ÁLBUM DE FOTOS</h1>
+
+      <div class="album-container ">
+        <button onclick="mostrarAlbum('recuerdos')">Recuerdos</button>
+        <button onclick="mostrarAlbum('maravillosas')">Maravillosas</button>
+        <button onclick="mostrarAlbum('aTuLado')">A tu lado</button>
+      </div>
+
+      <!-- Modal -->
+      <div id="modal" class="modal">
+        <div class="modal-content">
+          <span class="cerrar" onclick="cerrarModal()">&times;</span>
+          <h2 id="modalTitulo"></h2>
+          <p id="modalDedicatoria"></p>
+          <div id="modalFotos" class="fotos"></div>
+        </div>
+      </div>
+
+    </div>
+    <div class="calculator tiempo_relacion">
+      <div class="contenedor_tiempo">
+        <h1>Tiempo desde que estamos juntos</h1>
+
+        <div class="contador-box">
+          <div class="contador" id="contador">Calculando...</div>
+          <button class="boton" onclick="alert('¡Te amo mucho! 💖')">Dale click</button>
+          <div class="mensaje">Feliz Aniversario 💘</div>
+        </div>
+        <div class="corazones" id="corazones"></div>
+      </div>
+    </div>
+
+    <div class="calculator carta container">
+      <div class="palabras">
+        <h1>Carta para ti 💌</h1>
+        <div class="card-box">
+          <p>Haz clic para leer tu carta especial</p>
+          <button class="btn" onclick="mostrarCarta()">Leer Carta</button>
+        </div>
+
+        <div class="letter" id="carta">
+          <h2>Carta para ti</h2>
+          <p>Mi Natita,</p>
+          <p>Hola mi amor, agradezco a dios por estar contigo, has sido lo mejor que me ha pasado</p>
+          <p>Esta es una carta de prueba llena de amor, cariño y buenos deseos. 💖</p>
+          <p>Gracias por ser tan especial para mí.</p>
+          <p>Con todo mi amor,</p>
+          <p><strong>Fran</strong></p>
+        </div>
+      </div>
+    </div>
+    <footer class="calculator pie">
+      <div class="video-grid">
+        <div class="video-container">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/NMlKHIqtuO0?si=eTXu9GoN8L7ah9Z-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+       
+      </div>
+    </footer>
+</body>
+
+</html>
+
+<script>
+  const inicio = new Date("2016-06-09T14:00:00");
+
+  function actualizarContador() {
+    const ahora = new Date();
+
+    // Calcular los meses calendario exactos
+    let años = ahora.getFullYear() - inicio.getFullYear();
+    let meses = ahora.getMonth() - inicio.getMonth();
+    let totalMeses = años * 12 + meses;
+
+    // Verificar si ya pasó el día y hora del mes actual
+    if (
+      ahora.getDate() < inicio.getDate() ||
+      (ahora.getDate() === inicio.getDate() &&
+        (ahora.getHours() < inicio.getHours() ||
+          (ahora.getHours() === inicio.getHours() && ahora.getMinutes() < inicio.getMinutes())))
+    ) {
+      totalMeses--;
+    }
+
+    // Calcular la fecha del último mes completo cumplido
+    const ultimoMesCompleto = new Date(inicio);
+    ultimoMesCompleto.setMonth(inicio.getMonth() + totalMeses);
+
+    // Diferencia desde el último mes completo
+    const diferencia = ahora - ultimoMesCompleto;
+    const segundos = Math.floor(diferencia / 1000);
+    const minutos = Math.floor(segundos / 60);
+    const horas = Math.floor(minutos / 60);
+    const dias = Math.floor(horas / 24);
+
+    const restoHoras = horas % 24;
+    const restoMinutos = minutos % 60;
+    const restoSegundos = segundos % 60;
+
+    document.getElementById("contador").innerHTML =
+      `${totalMeses} meses ${dias} días ` +
+      `${restoHoras} horas ${restoMinutos} minutos ${restoSegundos} segundos`;
+  }
+
+  // Actualiza cada segundo
+  setInterval(actualizarContador, 1000);
+  actualizarContador();
+
+
+  // Corazones animados
+  const corazonesContainer = document.getElementById("corazones");
+  for (let i = 0; i < 30; i++) {
+    const c = document.createElement("div");
+    c.className = "corazon";
+    c.innerHTML = "❤️";
+    c.style.left = Math.random() * 100 + "vw";
+    c.style.animationDelay = Math.random() * 5 + "s";
+    corazonesContainer.appendChild(c);
+  }
+
+  function mostrarCarta() {
+    document.getElementById('carta').style.display = 'block';
+  }
+
+  const contenido = {
+    recuerdos: {
+      titulo: "Recuerdos",
+      dedicatoria: "Cada momento contigo es un tesoro 💫",
+      fotos: [
+        "imagenes/recuerdos/IMG_20190915_232715.jpg",
+        "imagenes/recuerdos/IMG_20201113_212116.jpg",
+        "imagenes/recuerdos/IMG_20200725_215610.jpg",
+        "imagenes/recuerdos/IMG_20200215_180106.jpg",
+        "imagenes/recuerdos/IMG_20200331_223112.jpg"
+      ]
+    },
+    maravillosas: {
+      titulo: "Maravillosas",
+      dedicatoria: "Juntos creamos maravillas que ni el tiempo puede borrar 🌟",
+      fotos: [
+        "imagenes/maravillosos/B612_20211127_001804_115.jpg",
+        "imagenes/maravillosos/B612_20220109_140340_702.jpg",
+        "imagenes/maravillosos/B612_20220206_124801_456.jpg"
+      ]
+    },
+    aTuLado: {
+      titulo: "A tu lado",
+      dedicatoria: "Estar a tu lado hace que todo valga la pena ❤️",
+      fotos: [
+        "imagenes/atulado/img1.jpg",
+        "imagenes/atulado/img2.jpg",
+        "imagenes/atulado/img3.jpg",
+        "imagenes/atulado/img4.jpg",
+        "imagenes/atulado/img5.jpg"
+      ]
+    }
+  };
+
+  function mostrarAlbum(clave) {
+    const data = contenido[clave];
+    document.getElementById("modalTitulo").textContent = data.titulo;
+    document.getElementById("modalDedicatoria").textContent = data.dedicatoria;
+
+    const contenedorFotos = document.getElementById("modalFotos");
+    contenedorFotos.innerHTML = "";
+    data.fotos.forEach(ruta => {
+      const img = document.createElement("img");
+      img.src = ruta;
+      contenedorFotos.appendChild(img);
+    });
+
+    document.getElementById("modal").style.display = "block";
+    document.getElementById("album").style.height = "470px";
+  }
+
+  function cerrarModal() {
+    document.getElementById("modal").style.display = "none";
+    document.getElementById("album").style.height = "auto";
+  }
+</script>
